@@ -9,7 +9,7 @@ function MovieList({ genreId, index_ }) {
   const elementRef = useRef(null);
   useEffect(() => {
     getMovieByGenreId();
-  }, []);
+  }, [genreId]);
 
   const getMovieByGenreId = () => {
     GlobalApi.getMovieByGenreId(genreId).then((resp) => {
