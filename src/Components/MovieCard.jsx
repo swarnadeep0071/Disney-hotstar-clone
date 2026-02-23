@@ -1,5 +1,5 @@
 import React from "react";
-const image_base_url = "https://image.tmdb.org/t/p/w500";
+const image_base_url = "https://image.tmdb.org/t/p/original";
 
 function MovieCard({ movie }) {
   return (
