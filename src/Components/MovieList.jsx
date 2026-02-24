@@ -1,28 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
 import GlobalApi from "../Services/GlobalApi";
 import MovieCard from "./MovieCard";
-import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import HrMovieCard from "./HrMovieCard";
+import {
+  IoChevronBackOutline,
+  IoChevronForwardOutline,
+} from "react-icons/io5";
 
-function MovieList({ genreId, index_, searchQuery}) {
+function MovieList({ genreId, index_, searchQuery, onMovieClick }) {
   const [movieList, setMovieList] = useState([]);
   const elementRef = useRef(null);
-  useEffect(() => {
-    getMovieByGenreId();
-  }, [genreId]);
 
-  const getMovieByGenreId = () => {
+  useEffect(() => {
     GlobalApi.getMovieByGenreId(genreId).then((resp) => {
       setMovieList(resp.data.results);
     });
-  };
-
-  const slideRight = (elememt) => {
-    elememt.scrollLeft += 500;
-  };
-  const slideLeft = (elememt) => {
-    elememt.scrollLeft -= 500;
-  };
+  }, [genreId]);
 
   const filteredMovies =
     !searchQuery || searchQuery.trim().length === 0
@@ -31,13 +24,26 @@ function MovieList({ genreId, index_, searchQuery}) {
           const title = (movie.title || movie.name || "").toLowerCase();
           return title.includes(searchQuery.toLowerCase());
         });
+
+  const slideRight = () => {
+    const element = elementRef.current;
+    if (!element) return;
+    element.scrollLeft += 500;
+  };
+
+  const slideLeft = () => {
+    const element = elementRef.current;
+    if (!element) return;
+    element.scrollLeft -= 500;
+  };
+
   return (
     <div className="relative">
       <IoChevronBackOutline
-        onClick={() => slideLeft(elementRef.current)}
+        onClick={slideLeft}
         className={`text-[50px] p-2 z-10 cursor-pointer hidden md:block absolute ${
-          index_ % 3 == 0 ? `mt-[65px]` : `mt-[150px]`
-        } `}
+          index_ % 3 === 0 ? `mt-[65px]` : `mt-[150px]`
+        }`}
       />
       <div
         ref={elementRef}
@@ -45,19 +51,22 @@ function MovieList({ genreId, index_, searchQuery}) {
       >
         {filteredMovies.map((item, index) => (
           <React.Fragment key={item.id || index}>
-            {index_ % 3 == 0 ? (
-              <HrMovieCard movie={item} />
+            {index_ % 3 === 0 ? (
+              <HrMovieCard
+                movie={item}
+                onClick={() => onMovieClick?.(item)}
+              />
             ) : (
-              <MovieCard movie={item} />
+              <MovieCard movie={item} onClick={() => onMovieClick?.(item)} />
             )}
           </React.Fragment>
         ))}
       </div>
       <IoChevronForwardOutline
-        onClick={() => slideRight(elementRef.current)}
+        onClick={slideRight}
         className={`text-[50px] hidden md:block p-2 cursor-pointer z-10 top-0 absolute right-0 ${
-          index_ % 3 == 0 ? `mt-[65px]` : `mt-[150px]`
-        } `}
+          index_ % 3 === 0 ? `mt-[65px]` : `mt-[150px]`
+        }`}
       />
     </div>
   );

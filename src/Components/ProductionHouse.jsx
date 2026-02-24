@@ -40,27 +40,29 @@ function ProductionHouse() {
     },
   ];
   return (
-    <div className="flex gap-2 md:gap-5 p-2 px-5 md:px-16 ">
-      {productionHouseList.map((item) => (
-        <div
-          className="border-[2px] border-gray-600
+    <div className="px-3 md:px-16 py-3">
+      <div className="flex gap-3 md:gap-5 overflow-x-auto no-scrollbar">
+        {productionHouseList.map((item) => (
+          <div
+            key={item.id}
+            className="min-w-[120px] sm:min-w-[140px] md:min-w-[180px] border-[2px] border-gray-600
             rounded-lg hover:scale-110 transition-all duration-300
             ease-in-out cursor-pointer relative shadow-xl 
-            shadow-gray-800
-            "
-        >
-          <video
-            src={item.video}
-            autoPlay
-            loop
-            playsInline
-            muted
-            className=" w-full h-full absolute z-0  top-0 rounded-md 
+            shadow-gray-800"
+          >
+            <video
+              src={item.video}
+              autoPlay
+              loop
+              playsInline
+              muted
+              className="w-full h-full absolute z-0 top-0 rounded-md 
             opacity-0 hover:opacity-70"
-          />
-          <img src={item.image} className="w-full z-[1] opacity-100" />
-        </div>
-      ))}
+            />
+            <img src={item.image} className="w-full z-[1] opacity-100" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
