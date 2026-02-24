@@ -10,7 +10,7 @@ import {
 import { HiPlus, HiDotsVertical } from "react-icons/hi";
 import HeaderItem from "./HeaderItem";
 
-function Header() {
+function Header({ user, onLogout, searchQuery, onSearchChange }) {
   const [toggle, setToggle] = useState(false);
   const menu = [
     {
@@ -40,7 +40,7 @@ function Header() {
   ];
 
   return (
-    <div className="flex items-center gap-8 justify-between p-5">
+    <div className="flex items-center justify-between p-3 md:p-5 gap-4 md:gap-8">
       <div className="flex items-center gap-8">
         <img src={logo} className="w-[55px] object-cover " />
         <div className="hidden md:flex gap-8">
@@ -68,10 +68,29 @@ function Header() {
           </div>
         </div>
       </div>
-      <img
-        src="https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/User-Administrator-Blue-icon.png"
-        className="w-[40px] rounded-full"
-      />
+      <div className="flex items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search movies..."
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="hidden md:block bg-[#1f1f1f] text-white px-3 py-1 rounded outline-none"
+        />
+        <span className="text-sm text-gray-300 hidden md:inline">
+          {user?.email}
+        </span>
+        <img
+          src="https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/User-Administrator-Blue-icon.png"
+          className="w-[40px] rounded-full"
+          alt="User avatar"
+        />
+        <button
+          onClick={onLogout}
+          className="text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

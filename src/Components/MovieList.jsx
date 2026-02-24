@@ -4,7 +4,7 @@ import MovieCard from "./MovieCard";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import HrMovieCard from "./HrMovieCard";
 
-function MovieList({ genreId, index_ }) {
+function MovieList({ genreId, index_, searchQuery}) {
   const [movieList, setMovieList] = useState([]);
   const elementRef = useRef(null);
   useEffect(() => {
@@ -23,6 +23,14 @@ function MovieList({ genreId, index_ }) {
   const slideLeft = (elememt) => {
     elememt.scrollLeft -= 500;
   };
+
+  const filteredMovies =
+    !searchQuery || searchQuery.trim().length === 0
+      ? movieList
+      : movieList.filter((movie) => {
+          const title = (movie.title || movie.name || "").toLowerCase();
+          return title.includes(searchQuery.toLowerCase());
+        });
   return (
     <div className="relative">
       <IoChevronBackOutline
@@ -35,14 +43,14 @@ function MovieList({ genreId, index_ }) {
         ref={elementRef}
         className="flex overflow-x-auto gap-8 no-scrollbar scroll-smooth pt-5 px-3 pb-5"
       >
-        {movieList.map((item, index) => (
-          <>
+        {filteredMovies.map((item, index) => (
+          <React.Fragment key={item.id || index}>
             {index_ % 3 == 0 ? (
               <HrMovieCard movie={item} />
             ) : (
               <MovieCard movie={item} />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
       <IoChevronForwardOutline
