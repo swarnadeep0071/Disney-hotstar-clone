@@ -68,7 +68,7 @@ function Login({ onLogin }) {
         </button>
 
         <p className="login-disclaimer">
-          This is a demo clone for learning purposes only.
+          This is a demo clone for project purposes only.
         </p>
       </div>
     </div>
