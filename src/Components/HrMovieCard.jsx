@@ -10,6 +10,7 @@ function HrMovieCard({ movie, onClick }) {
       <img
         src={image_base_url + movie.backdrop_path}
         alt={movie.title || movie.name}
+        loading="lazy"
         className="w-[110px] md:w-[260px] rounded-lg hover:border-[3px] border-gray-400"
       />
       <h2 className="w-[110px] md:w-[260px] mt-2 font-semibold text-center">

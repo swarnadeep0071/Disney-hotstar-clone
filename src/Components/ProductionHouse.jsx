@@ -59,7 +59,11 @@ function ProductionHouse() {
               className="w-full h-full absolute z-0 top-0 rounded-md 
             opacity-0 hover:opacity-70"
             />
-            <img src={item.image} className="w-full z-[1] opacity-100" />
+            <img 
+            src={item.image}
+            alt="Brand logo"
+            loading="lazy"
+            className="w-full z-[1] opacity-100" />
           </div>
         ))}
       </div>

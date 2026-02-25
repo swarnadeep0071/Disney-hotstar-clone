@@ -57,6 +57,7 @@ function Slider() {
               key={item.id}
               src={image_base_url + item.backdrop_path}
               alt={item.title || item.name}
+              // loading={index === 0 ? "eager" : "lazy"}
               className="min-w-full h-[220px] md:h-[410px] object-cover object-left-top mr-3 md:mr-5 rounded-md hover:scale-[1.01] transition-transform duration-150 ease-in-out"
             />
           ))}

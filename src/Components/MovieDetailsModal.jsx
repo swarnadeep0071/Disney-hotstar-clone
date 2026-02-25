@@ -24,6 +24,7 @@ function MovieDetailsModal({ movie, onClose }) {
           <img
             src={image_base_url + backdrop}
             alt={title}
+            loading="lazy"
             className="w-full h-44 sm:h-56 md:h-72 object-cover"
           />
         )}
