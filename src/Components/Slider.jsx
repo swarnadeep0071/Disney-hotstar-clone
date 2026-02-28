@@ -3,16 +3,20 @@ import GlobalApi from "../Services/GlobalApi";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
 const image_base_url = "https://image.tmdb.org/t/p/original";
-const screenWidth = window.innerWidth;
 
 function Slider() {
   const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const elementRef = useRef(null);
 
   useEffect(() => {
-    GlobalApi.getTrendingVideos.then((resp) => {
-      setMovieList(resp.data.results || []);
-    });
+    GlobalApi.getTrendingVideos
+      .then((resp) => {
+        setMovieList(resp.data.results || []);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const sliderRight = () => {
@@ -21,13 +25,21 @@ function Slider() {
     const width = element.clientWidth;
     element.scrollLeft += width;
   };
-  
+
   const sliderLeft = () => {
     const element = elementRef.current;
     if (!element) return;
     const width = element.clientWidth;
     element.scrollLeft -= width;
   };
+
+  if (isLoading) {
+    return (
+      <div className="relative mb-6 md:mb-10 px-0 sm:px-2 md:px-16">
+        <div className="w-full h-[220px] md:h-[410px] rounded-md bg-[#1f2937] animate-pulse" />
+      </div>
+    );
+  }
 
   if (!movieList.length) return null;
 
@@ -37,14 +49,14 @@ function Slider() {
     <div className="relative mb-6 md:mb-10">
       {/* Arrows */}
       <HiChevronLeft
-  className="hidden md:block text-[32px] absolute mx-8 top-1/2 -translate-y-1/2 cursor-pointer z-20"
-  onClick={sliderLeft}
-/>
+        className="hidden md:block text-[32px] absolute mx-8 top-1/2 -translate-y-1/2 cursor-pointer z-20"
+        onClick={sliderLeft}
+      />
 
-<HiChevronRight
-  className="hidden md:block text-[32px] absolute mx-8 top-1/2 -translate-y-1/2 cursor-pointer right-0 z-20"
-  onClick={sliderRight}
-/>
+      <HiChevronRight
+        className="hidden md:block text-[32px] absolute mx-8 top-1/2 -translate-y-1/2 cursor-pointer right-0 z-20"
+        onClick={sliderRight}
+      />
 
       {/* Slider images */}
       <div className="relative">
@@ -52,12 +64,12 @@ function Slider() {
           className="flex overflow-x-auto w-full px-0 sm:px-2 md:px-16 py-2 md:py-4 no-scrollbar scroll-smooth"
           ref={elementRef}
         >
-          {movieList.map((item) => (
+          {movieList.map((item, index) => (
             <img
               key={item.id}
               src={image_base_url + item.backdrop_path}
               alt={item.title || item.name}
-              // loading={index === 0 ? "eager" : "lazy"}
+              loading={index === 0 ? "eager" : "lazy"}
               className="min-w-full h-[220px] md:h-[410px] object-cover object-left-top mr-3 md:mr-5 rounded-md hover:scale-[1.01] transition-transform duration-150 ease-in-out"
             />
           ))}

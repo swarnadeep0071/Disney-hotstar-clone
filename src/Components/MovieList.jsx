@@ -16,12 +16,18 @@ function MovieList({
   onResultsUpdate,
 }) {
   const [movieList, setMovieList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const elementRef = useRef(null);
 
   useEffect(() => {
-    GlobalApi.getMovieByGenreId(genreId).then((resp) => {
-      setMovieList(resp.data.results);
-    });
+    setIsLoading(true);
+    GlobalApi.getMovieByGenreId(genreId)
+      .then((resp) => {
+        setMovieList(resp.data.results);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [genreId]);
 
   const filteredMovies =
@@ -39,8 +45,30 @@ function MovieList({
     }
   }, [filteredMovies.length, onResultsUpdate, genreId]);
 
+  // Skeleton while loading (only when not actively searching)
+  if (isLoading && (!searchQuery || searchQuery.trim().length === 0)) {
+    return (
+      <div className="px-4 py-4 md:px-16 md:py-5">
+        <div className="h-5 w-32 md:w-40 rounded bg-[#1f2937] animate-pulse mb-4" />
+        <div className="flex gap-4 md:gap-6 pt-2">
+          {Array.from({ length: 6 }).map((_, idx) => (
+            <div
+              key={idx}
+              className="w-[110px] md:w-[200px] h-[160px] md:h-[260px] rounded-lg bg-[#1f2937] animate-pulse"
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   // When searching and this genre has no matches, hide the whole section
-  if (searchQuery && searchQuery.trim().length > 0 && filteredMovies.length === 0) {
+  if (
+    !isLoading &&
+    searchQuery &&
+    searchQuery.trim().length > 0 &&
+    filteredMovies.length === 0
+  ) {
     return null;
   }
 
