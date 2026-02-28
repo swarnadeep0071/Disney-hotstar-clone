@@ -1,6 +1,6 @@
 import React from "react";
 
-const image_base_url = "https://image.tmdb.org/t/p/original";
+const image_base_url = "https://image.tmdb.org/t/p/w500";
 
 function MovieDetailsModal({ movie, onClose }) {
   if (!movie) return null;
