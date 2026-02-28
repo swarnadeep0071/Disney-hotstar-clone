@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import GlobalApi from "../Services/GlobalApi";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
-const image_base_url = "https://image.tmdb.org/t/p/w500";
+const image_base_url = "https://image.tmdb.org/t/p/original";
 
 function Slider() {
   const [movieList, setMovieList] = useState([]);
