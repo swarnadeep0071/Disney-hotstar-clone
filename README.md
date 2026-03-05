@@ -1,8 +1,22 @@
-# React + Vite
+# Disney+ Hotstar Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A front-end clone of Disney+ Hotstar built with React.js. It features responsive design, high-resolution banners, and API integration for movies and shows.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- Responsive UI
+- High-resolution banner rendering
+- API integration for real-time content
+- User-friendly navigation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tech Stack
+- React.js
+- CSS
+- API Integration
+- Vercel (Deployment)
+
+## ⚙️ Installation
+```bash
+git clone https://github.com/swarnadeep0071/disney-hotstar-clone
+cd disney-hotstar-clone
+npm install
+npm start
