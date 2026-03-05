@@ -20,3 +20,5 @@ git clone https://github.com/swarnadeep0071/disney-hotstar-clone
 cd disney-hotstar-clone
 npm install
 npm start
+
+https://github.com/swarnadeep0071/Disney-hotstar-clone/issues/1#issue-4027196268
